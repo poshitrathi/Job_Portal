@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { API_ENDPOINTS } from "../../config/api";
 
 const userSlice = createSlice({
   name: "user",
@@ -92,7 +93,7 @@ export const register = (data) => async (dispatch) => {
   dispatch(userSlice.actions.registerRequest());
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/v1/user/register",
+      API_ENDPOINTS.USER_REGISTER,
       data,
       {
         withCredentials: true,
@@ -110,7 +111,7 @@ export const login = (data) => async (dispatch) => {
   dispatch(userSlice.actions.loginRequest());
   try {
     const response = await axios.post(
-      "http://localhost:4000/api/v1/user/login",
+      API_ENDPOINTS.USER_LOGIN,
       data,
       {
         withCredentials: true,
@@ -128,7 +129,7 @@ export const getUser = () => async (dispatch) => {
   dispatch(userSlice.actions.fetchUserRequest());
   try {
     const response = await axios.get(
-      "http://localhost:4000/api/v1/user/getuser",
+      API_ENDPOINTS.USER_GET,
       {
         withCredentials: true,
       }
@@ -142,7 +143,7 @@ export const getUser = () => async (dispatch) => {
 export const logout = () => async (dispatch) => {
   try {
     const response = await axios.get(
-      "http://localhost:4000/api/v1/user/logout",
+      API_ENDPOINTS.USER_LOGOUT,
       {
         withCredentials: true,
       }

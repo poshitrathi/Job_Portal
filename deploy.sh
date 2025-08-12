@@ -1,0 +1,45 @@
+#!/bin/bash
+
+echo "🚀 Job Portal Deployment Script"
+echo "================================"
+
+echo ""
+echo "📋 Prerequisites Check:"
+echo "1. ✅ GitHub repository connected"
+echo "2. ✅ MongoDB Atlas account"
+echo "3. ✅ Cloudinary account"
+echo "4. ✅ Gmail account with App Password"
+echo "5. ✅ Render account"
+
+echo ""
+echo "🔄 Next Steps:"
+echo "1. Push all changes to GitHub:"
+echo "   git add ."
+echo "   git commit -m 'Prepare for deployment'"
+echo "   git push origin main"
+
+echo ""
+echo "2. Deploy Backend to Render:"
+echo "   - Go to https://render.com"
+echo "   - Create new Web Service"
+echo "   - Connect your GitHub repo"
+echo "   - Use backend/render.yaml config"
+
+echo ""
+echo "3. Deploy Frontend to Render:"
+echo "   - Create new Static Site"
+echo "   - Connect your GitHub repo"
+echo "   - Build Command: cd frontend && npm install && npm run build"
+echo "   - Publish Directory: frontend/dist"
+
+echo ""
+echo "4. Set Environment Variables in Render:"
+echo "   - Backend: MONGO_URI, JWT_SECRET_KEY, etc."
+echo "   - Frontend: VITE_API_URL"
+
+echo ""
+echo "📖 See DEPLOYMENT.md for detailed instructions"
+echo ""
+echo "🎯 Your app will be live at:"
+echo "   Frontend: https://your-app-name.onrender.com"
+echo "   Backend: https://your-backend-name.onrender.com" 
