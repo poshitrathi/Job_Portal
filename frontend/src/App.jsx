@@ -19,8 +19,12 @@ const App = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUser());
-  }, []);
+    // Only try to get user if there's a token in cookies
+    const hasToken = document.cookie.includes('token=');
+    if (hasToken) {
+      dispatch(getUser());
+    }
+  }, [dispatch]);
 
   return (
     <>
