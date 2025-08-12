@@ -148,8 +148,20 @@ export const logout = () => async (dispatch) => {
         withCredentials: true,
       }
     );
+    
+    // Clear Redux state
     dispatch(userSlice.actions.logoutSuccess());
-    dispatch(userSlice.actions.clearAllErrors());
+    dispatch(userSlice.actions.clearAllUserErrors());
+    
+    // Clear any localStorage if you're using it
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('user');
+      localStorage.removeItem('token');
+    }
+    
+    // Force page reload to clear all state
+    window.location.href = '/';
+    
   } catch (error) {
     dispatch(userSlice.actions.logoutFailed(error.response.data.message));
   }
