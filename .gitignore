@@ -1,0 +1,5 @@
+// To ensure your config folder isn't pushed to your GitHub repository, you should add the folder's name to your .gitignore file.
+
+//You'll need to create the .gitignore file in your project's root directory and add the following line:
+
+/backend/config/
