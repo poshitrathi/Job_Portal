@@ -10,6 +10,19 @@ import jobRouter from "./routes/jobRouter.js";
 import applicationRouter from "./routes/applicationRouter.js";
 import { newsLetterCron } from "./automation/newsLetterCron.js";
 
+console.log("Starting to import modules...");
+console.log("Express imported successfully");
+console.log("Dotenv imported successfully");
+console.log("CORS imported successfully");
+console.log("Database connection imported successfully");
+console.log("Cookie parser imported successfully");
+console.log("Error middleware imported successfully");
+console.log("File upload imported successfully");
+console.log("User router imported successfully");
+console.log("Job router imported successfully");
+console.log("Application router imported successfully");
+console.log("Newsletter cron imported successfully");
+
 const app = express();
 config({ path: "./config/config.env" });
 
@@ -18,12 +31,23 @@ app.use(
     origin: [process.env.FRONTEND_URL],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+    exposedHeaders: ["Set-Cookie"],
   })
 );
 
 app.use(cookieParser());
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
+
+// Health check route
+app.get("/", (req, res) => {
+  res.json({ message: "Job Portal Backend is running!", status: "OK" });
+});
+
+app.get("/health", (req, res) => {
+  res.json({ message: "Health check passed", status: "OK" });
+}); 
 
 app.use(
   fileUpload({
@@ -32,9 +56,30 @@ app.use(
   })
 );
 
-app.use("/api/v1/user", userRouter);
-app.use("/api/v1/job", jobRouter);
-app.use("/api/v1/application", applicationRouter);
+console.log("About to mount routes...");
+
+try {
+  app.use("/api/v1/user", userRouter);
+  console.log("✅ User routes mounted at /api/v1/user");
+} catch (error) {
+  console.error("❌ Failed to mount user routes:", error);
+}
+
+try {
+  app.use("/api/v1/job", jobRouter);
+  console.log("✅ Job routes mounted at /api/v1/job");
+} catch (error) {
+  console.error("❌ Failed to mount job routes:", error);
+}
+
+try {
+  app.use("/api/v1/application", applicationRouter);
+  console.log("✅ Application routes mounted at /api/v1/application");
+} catch (error) {
+  console.error("❌ Failed to mount application routes:", error);
+}
+
+console.log("🎯 All routes mounted successfully");
 
 newsLetterCron()
 connection();
